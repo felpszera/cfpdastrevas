@@ -123,12 +123,19 @@ function desenharTudo() {
   desenharGrade();
   desenharAlunos();
 
-  // Assinatura no canto inferior direito do canvas
-  ctx.font = "bold 12px Segoe UI";
-  ctx.fillStyle = "#FFD700"; // dourado PMDF
+  desenharAssinatura(); // chamamos a função de assinatura
+}
+function desenharAssinatura() {
+  ctx.save(); // salva o estado atual do canvas
+
+  ctx.font = "bold 14px Segoe UI";
+  ctx.fillStyle = "#FFD700"; // dourado bonito
   ctx.textAlign = "right";
   ctx.textBaseline = "bottom";
-  ctx.fillText("Desenvolvido por Felipe - 2025", canvas.width - 10, canvas.height - 10);
+
+  ctx.fillText("Desenvolvido por SD F. Lima - 2025", canvas.width - 20, canvas.height - 10);
+
+  ctx.restore(); // restaura o estado antigo do canvas
 }
 
 
