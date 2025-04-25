@@ -23,7 +23,28 @@ const historico = [];
 const pontosPermitidos = gerarPontosPermitidos();
 
 canvas.addEventListener('click', handleCanvasClick);
+canvas.addEventListener('mousedown', (e) => {
+    if (e.button === 0) { // botão esquerdo
+      mousePressionado = true;
+      handleCanvasClick(e); // já adiciona o primeiro clique
+    }
+  });
+  
+  canvas.addEventListener('mouseup', (e) => {
+    if (e.button === 0) {
+      mousePressionado = false;
+    }
+  });
+  
+  canvas.addEventListener('mousemove', (e) => {
+    if (mousePressionado) {
+      handleCanvasClick(e); // enquanto mover com botão pressionado, adiciona
+    }
+  });
+  
 canvas.addEventListener('mousemove', mostrarEnderecoAluno);
+
+let mousePressionado = false;
 
 desenharTudo();
 
@@ -141,18 +162,14 @@ function handleCanvasClick(event) {
   
     if (pontoMaisProximo) {
       const key = `${Math.round(pontoMaisProximo.x)}-${Math.round(pontoMaisProximo.y)}`;
-  
-      if (alunos.has(key)) {
-        alunos.delete(key);
-        historico.push({ tipo: 'remover', key });
-      } else {
+      if (!alunos.has(key)) { // só adiciona se ainda não tiver aluno
         alunos.add(key);
         historico.push({ tipo: 'adicionar', key });
+        desenharTudo();
       }
-  
-      desenharTudo();
     }
-  }  
+  }
+  
   
 function desfazerAcao() {
   if (historico.length === 0) return;
