@@ -119,25 +119,9 @@ function desenharAlunos() {
 }
 
 function desenharTudo() {
-  desenharFundo();
   desenharGrade();
   desenharAlunos();
-
-  desenharAssinatura(); // chamamos a função de assinatura
 }
-function desenharAssinatura() {
-  ctx.save(); // salva o estado atual do canvas
-
-  ctx.font = "bold 14px Segoe UI";
-  ctx.fillStyle = "#FFD700"; // dourado bonito
-  ctx.textAlign = "right";
-  ctx.textBaseline = "bottom";
-
-  ctx.fillText("Desenvolvido por SD F. Lima - 2025", canvas.width - 20, canvas.height - 10);
-
-  ctx.restore(); // restaura o estado antigo do canvas
-}
-
 
 function handleCanvasClick(event) {
     const rect = canvas.getBoundingClientRect();
