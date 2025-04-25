@@ -288,4 +288,3 @@ function mostrarEnderecoAluno(event) {
     pdf.addImage(imgData, "PNG", marginX, marginY, imgWidth, imgHeight);
     pdf.save("formacao_pmdf.pdf");
   }
-  
