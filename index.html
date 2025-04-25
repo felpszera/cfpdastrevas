@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Formação Manual - PMDF</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <img src="brasao_pmdf.png" alt="Brasão PMDF" class="brasao">
+  
+  <h2>CFP DAS TREVAS</h2>
+
+  <div class="main">
+    <div class="controls">
+      <button onclick="desfazerAcao()">⬅️ Desfazer Última Ação</button>
+      <button onclick="preencherIntersecoes()">🧩 Preencher Interseções</button>
+      <button onclick="limparFormacao()">🗑️ Limpar Formação</button>
+      <button onclick="baixarPDF()">📄 Baixar PDF</button>
+      <div id="mensagem" class="mensagem"></div>
+      <div id="infoAluno" class="infoAluno"></div>
+    </div>
+
+    <canvas id="formacaoCanvas"></canvas>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body>
+</html>
