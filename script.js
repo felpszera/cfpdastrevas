@@ -119,9 +119,18 @@ function desenharAlunos() {
 }
 
 function desenharTudo() {
+  desenharFundo();
   desenharGrade();
   desenharAlunos();
+
+  // Assinatura no canto inferior direito do canvas
+  ctx.font = "bold 12px Segoe UI";
+  ctx.fillStyle = "#FFD700"; // dourado PMDF
+  ctx.textAlign = "right";
+  ctx.textBaseline = "bottom";
+  ctx.fillText("Desenvolvido por Felipe - 2025", canvas.width - 10, canvas.height - 10);
 }
+
 
 function handleCanvasClick(event) {
     const rect = canvas.getBoundingClientRect();
