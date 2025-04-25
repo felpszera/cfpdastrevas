@@ -145,30 +145,45 @@ function desenharTudo() {
 }
 
 function handleCanvasClick(event) {
-    const rect = canvas.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-  
-    let pontoMaisProximo = null;
-    let distanciaMinima = 12;
-  
-    pontosPermitidos.forEach(p => {
-      const dist = Math.hypot(p.x - mouseX, p.y - mouseY);
-      if (dist < distanciaMinima) {
-        distanciaMinima = dist;
-        pontoMaisProximo = p;
-      }
-    });
-  
-    if (pontoMaisProximo) {
-      const key = `${Math.round(pontoMaisProximo.x)}-${Math.round(pontoMaisProximo.y)}`;
-      if (!alunos.has(key)) { // só adiciona se ainda não tiver aluno
+  const rect = canvas.getBoundingClientRect();
+  const mouseX = event.clientX - rect.left;
+  const mouseY = event.clientY - rect.top;
+
+  let pontoMaisProximo = null;
+  let distanciaMinima = 12;
+
+  pontosPermitidos.forEach(p => {
+    const dist = Math.hypot(p.x - mouseX, p.y - mouseY);
+    if (dist < distanciaMinima) {
+      distanciaMinima = dist;
+      pontoMaisProximo = p;
+    }
+  });
+
+  if (pontoMaisProximo) {
+    const key = `${Math.round(pontoMaisProximo.x)}-${Math.round(pontoMaisProximo.y)}`;
+
+    if (mousePressionado) {
+      // Quando estiver arrastando -> só adiciona
+      if (!alunos.has(key)) {
         alunos.add(key);
         historico.push({ tipo: 'adicionar', key });
         desenharTudo();
       }
+    } else {
+      // Clique único -> adiciona ou remove (toggle)
+      if (alunos.has(key)) {
+        alunos.delete(key);
+        historico.push({ tipo: 'remover', key });
+      } else {
+        alunos.add(key);
+        historico.push({ tipo: 'adicionar', key });
+      }
+      desenharTudo();
     }
   }
+}
+
   
   
 function desfazerAcao() {
