@@ -205,3 +205,41 @@ function mostrarEnderecoAluno(event) {
     info.innerText = '';
   }
 }
+
+async function baixarPDF() {
+  const { jsPDF } = window.jspdf;
+
+  // Primeiro, garantir que tudo foi redesenhado!
+  desenharTudo(); // REdesenha os alunos e grade antes de capturar!
+
+  const a4Width = 842; // Agora é paisagem (largura de A4)
+  const a4Height = 595; // Altura de A4
+
+  const imgData = canvas.toDataURL("image/png");
+
+  // Calcula proporção
+  const canvasRatio = canvas.width / canvas.height;
+  const a4Ratio = a4Width / a4Height;
+
+  let imgWidth = a4Width;
+  let imgHeight = a4Height;
+
+  if (canvasRatio > a4Ratio) {
+    imgHeight = imgWidth / canvasRatio;
+  } else {
+    imgWidth = imgHeight * canvasRatio;
+  }
+
+  const marginX = (a4Width - imgWidth) / 2;
+  const marginY = (a4Height - imgHeight) / 2;
+
+  const pdf = new jsPDF({
+    orientation: "landscape",
+    unit: "px",
+    format: [a4Width, a4Height]
+  });
+
+  pdf.addImage(imgData, "PNG", marginX, marginY, imgWidth, imgHeight);
+  pdf.save("formacao_pmdf.pdf");
+}
+
